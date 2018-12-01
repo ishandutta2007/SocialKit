@@ -1,4 +1,4 @@
-from instagram_private_api import Client, ClientCompatPatch
+from API.instagram_private_api import Client
 import time
 import random
 
