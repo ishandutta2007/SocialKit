@@ -1,11 +1,10 @@
 from API.instagram_private_api import Client
 import time
 import random
+from Bots import login
 
-with open("config.txt") as infile:
-    user, password, debug = [line.strip() for _, line in zip(range(3), infile)]
+api = login.login()
 
-api = Client(user, password)
 pending = api.friendships_pending()
 
 total = 0
