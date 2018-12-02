@@ -1,13 +1,27 @@
 from API.instagram_private_api import Client
-import os
+import pymysql
 
-dir=os.getcwd()
 
-with open("config.txt") as infile:
-    user, password, debug = [line.strip() for _, line in zip(range(3), infile)]
+config = {
+  'host':'localhost',
+  'user':'root',
+  'password':'',
+  'database':'socialkit'
+}
 
+connection = pymysql.connect(**config)
+
+crsr = connection.cursor()
+
+crsr.execute("""SELECT IGU, IGP FROM user
+WHERE userID=1""")
+
+lst = crsr.fetchall()
+
+username = str(lst[0][0])
+password = str(lst[0][1])
 
 def login():
 
-    api = Client(user, password)
+    api = Client(username, password)
     return api

@@ -1,8 +1,8 @@
 from API.instagram_private_api import Client
-from Bots.Functions.API import login
+from Bots.Functions.API import login_config
 
 
-api = login.login()
+api = login_config.login()
 
 dick = api.username_info("hrithikhahs")["user"]["pk"]
 
