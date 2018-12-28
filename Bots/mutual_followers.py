@@ -103,7 +103,7 @@ if __name__ == '__main__':
     with open('mutuals.txt', 'w') as h:
         for user in dupes:
             print(str(user['pk']) + ", " + str(user['username']))
-            h.write("%s, %s\n", str(user['pk'], str(user['username']))
+            h.write("%s, %s\n", str(user['pk'], str(user['username'])))
 
 
 
