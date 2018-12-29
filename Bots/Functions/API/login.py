@@ -14,7 +14,7 @@ connection = pymysql.connect(**config)
 crsr = connection.cursor()
 
 crsr.execute("""SELECT IGU, IGP FROM user
-WHERE userID=4""")
+WHERE userID=1""")
 
 lst = crsr.fetchall()
 
