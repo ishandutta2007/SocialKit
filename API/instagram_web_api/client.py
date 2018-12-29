@@ -750,6 +750,20 @@ class Client(object):
         return self._make_request(endpoint, params='')
 
     @login_required
+    def friendship_accept(self, user_id):
+        """
+        Accept follow request. Login required.
+
+        :param user_id:
+        :return:
+            .. code-block:: javascript
+
+                {"status": "ok"}
+        """
+        endpoint = 'https://www.instagram.com/web/friendships/{user_id!s}/approve/'.format(**{'user_id': user_id})
+        return self._make_request(endpoint, params='')    
+    
+    @login_required
     def post_comment(self, media_id, comment_text):
         """
         Post a new comment. Login required.
