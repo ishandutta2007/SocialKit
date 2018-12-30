@@ -9,16 +9,16 @@ api = login.login()
 
 
 class MyThread(threading.Thread):
-    def __init__(self, tid, name, n, lst):
+    def __init__(self, q, name, n, lst):
         threading.Thread.__init__(self)
         self.lst = lst
         self.name = name
         self.n = n
-        self.id = tid
+        self.q = q
 
     def run(self):
         print("Starting {}".format(self.name))
-        accept(self.name, self.n, self.lst)
+        accept(self.name, self.n, self.lst, self.q)
         print("Exiting {}".format(self.name))
 
 
@@ -42,45 +42,35 @@ def splitter(arr, size):
     return arrs
 
 
-def accept(name, n, lst):
+def accept(name, n, lst, q):
+    q.put(n)
     for i in range(len(lst[n])):
         randtime = random.randint(1, 10)
         randtime = randtime / 10
         api.approve(lst[n][i])
         time.sleep(randtime / 100)
+
+    q.get(n)
     print("{}: accepted all followers.".format(name))
+
 
 def combine():
 
-    queuelock = threading.Lock()
-    workqueue = queue.Queue(20)
-    threads = []
-    tid=1
-
+    q = queue.Queue(20)
 
     pks = get_list()
-    split = splitter(pks, 20)
+    split = splitter(pks, len(pks)//20)
 
     while pks!=[]:
-        for i in range(20):
-            thread = MyThread(tid, "Thread-{}".format(i), i, split)
+        for i in range(len(split)):
+            thread = MyThread(q, "Thread-{}".format(i), i, split)
             thread.start()
-            threads.append(thread)
-            tid+=1
 
-        queuelock.acquire()
-        for i in range(20):
-            workqueue.put(i)
-        queuelock.release()
-
-        while not workqueue.empty():
+        while not q.empty():
             pass
 
-        for t in threads:
-            t.join()
-
         pks=get_list()
-        split = splitter(pks, 20)
+        split = splitter(pks, len(split))
 
     return "Done."
 
