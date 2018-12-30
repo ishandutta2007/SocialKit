@@ -23,5 +23,7 @@ password = str(lst[0][1])
 
 def login():
 
-    api = Client(username, password)
+    api = Client(
+    auto_patch=True, authenticate=True,
+    username=username, password=password)
     return api
