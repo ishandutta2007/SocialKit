@@ -7,6 +7,7 @@ from Bots.Functions.API import login
 
 api = login.login()
 
+COUNT = 0
 
 class MyThread(threading.Thread):
     def __init__(self, q, name, n, lst):
@@ -17,10 +18,9 @@ class MyThread(threading.Thread):
         self.q = q
 
     def run(self):
-        print("Starting {}".format(self.name))
+        print("{}: STARTING".format(self.name))
         accept(self.name, self.n, self.lst, self.q)
-        print("Exiting {}".format(self.name))
-
+        print("{}: EXITING".format(self.name))
 
 
 def get_list():
@@ -49,6 +49,10 @@ def accept(name, n, lst, q):
         randtime = randtime / 10
         api.approve(lst[n][i])
         time.sleep(randtime / 100)
+        global COUNT
+        COUNT+=1
+
+        print("{}: Accepted {} followers.".format(name, COUNT))
 
     q.get(n)
     print("{}: accepted all followers.".format(name))
@@ -56,10 +60,10 @@ def accept(name, n, lst, q):
 
 def combine():
 
-    q = queue.Queue(20)
+    q = queue.Queue(200)
 
     pks = get_list()
-    split = splitter(pks, len(pks)//20)
+    split = splitter(pks, 1)
 
     while pks!=[]:
         for i in range(len(split)):
@@ -73,12 +77,3 @@ def combine():
         split = splitter(pks, len(split))
 
     return "Done."
-
-
-
-
-
-
-
-
-
