@@ -117,6 +117,31 @@ class UsersEndpointsMixin(object):
         params = {'username': username}
         return self._call_api('users/check_username/', params=params)
 
+    def usrch(self, username):
+        """
+        Check feed if user exists
+
+        :param username:
+        :return:
+
+        """
+
+        endpoint = 'feed/user/{username!s}/username/'.format(**{'username': username})
+        return self._call_api(endpoint)
+
+    def psrch(self, username):
+        """
+        Check feed if user exists
+
+        :param username:
+        :return:
+
+        """
+
+        endpoint = 'users/search?q={username!s}'.format(**{'username': username})
+        return self._call_api(endpoint)
+
+
     def blocked_user_list(self):
         """
         Get list of blocked users

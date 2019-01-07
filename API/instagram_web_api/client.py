@@ -55,6 +55,7 @@ class Client(object):
     """Main API client class for the web api."""
 
     API_URL = 'https://www.instagram.com/query/'
+    O_URL = 'https://www.instagram.com/'
     GRAPHQL_API_URL = 'https://www.instagram.com/graphql/query/'
     USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15'      # noqa
     MOBILE_USER_AGENT = 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1'  # noqa
@@ -705,6 +706,22 @@ class Client(object):
         endpoint = 'https://www.instagram.com/web/likes/{media_id!s}/like/'.format(**{'media_id': media_id})
         res = self._make_request(endpoint, params='')
         return res
+
+    def ajax(self, username):
+        """
+        make an ajax request
+
+        :param username:
+        :return:
+            .. code-block:: javascript
+
+                {"status": "ok"}
+        """
+        endpoint = 'https://www.instagram.com/accounts/web_create_ajax/attempt/' \
+                   '{username!s}'.format(**{'username': username})
+        res = self._make_request(endpoint, params='')
+        return res
+
 
     @login_required
     def delete_like(self, media_id):

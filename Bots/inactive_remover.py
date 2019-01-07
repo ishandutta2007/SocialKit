@@ -33,6 +33,7 @@ def get_likers(username):
     name = api.username_info(username)
     id = name["user"]["pk"]
     rank_token = api.generate_uuid()
+    api.username_feed()
 
 
 def get_inactives(username):

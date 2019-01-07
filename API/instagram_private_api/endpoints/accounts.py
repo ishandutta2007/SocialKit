@@ -81,7 +81,7 @@ class AccountsEndpointsMixin(object):
             ClientCompatPatch.user(res['user'], drop_incompat_keys=self.drop_incompat_keys)
         return res
 
-    def edit_profile(self, first_name, biography, external_url, email, phone_number, gender):
+    def edit_profile(self, username, first_name, biography, external_url, email, phone_number, gender):
         """
         Edit profile
 
@@ -105,6 +105,38 @@ class AccountsEndpointsMixin(object):
             'first_name': first_name or '',
             'biography': biography or '',
             'external_url': external_url or '',
+            'email': email,
+        }
+        params.update(self.authenticated_params)
+        res = self._call_api('accounts/edit_profile/', params=params)
+        if self.auto_patch:
+            ClientCompatPatch.user(res.get('user'))
+        return res
+
+    def change_user(self, username,email,gender):
+        """
+        Edit profile
+
+        :param first_name:
+        :param biography:
+        :param external_url:
+        :param email: Required.
+        :param phone_number:
+        :param gender: male: 1, female: 2, unspecified: 3
+        :return:
+        """
+        if int(gender) not in [1, 2, 3]:
+            raise ValueError('Invalid gender: {0:d}'.format(int(gender)))
+        if not email:
+            raise ValueError('Email is required.')
+
+        params = {
+            'username': username,
+            'gender': int(gender),
+            'phone_number': '',
+            'first_name': '',
+            'biography': '',
+            'external_url': '',
             'email': email,
         }
         params.update(self.authenticated_params)
