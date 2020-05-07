@@ -2,10 +2,12 @@ import time
 import random
 import queue
 import threading
-from Bots.Functions.API import login
+from API.instagram_private_api import Client
 
 
-api = login.login()
+api = Client(
+    auto_patch=True, authenticate=True,
+    username="username", password="password")
 
 COUNT = 0
 
