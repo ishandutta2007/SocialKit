@@ -2,12 +2,23 @@ import time
 import random
 import queue
 import threading
+<<<<<<< HEAD
+=======
+from Bots.Functions.API import login
+>>>>>>> master
 from API.instagram_private_api import Client
 
 
 api = Client(
     auto_patch=True, authenticate=True,
     username="username", password="password")
+
+def login():
+
+    api = Client(
+    auto_patch=True, authenticate=True,
+    username="communism", password="vlad")
+    return api
 
 COUNT = 0
 
