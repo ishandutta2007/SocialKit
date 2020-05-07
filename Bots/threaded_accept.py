@@ -2,10 +2,6 @@ import time
 import random
 import queue
 import threading
-<<<<<<< HEAD
-=======
-from Bots.Functions.API import login
->>>>>>> master
 from API.instagram_private_api import Client
 
 

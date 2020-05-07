@@ -1030,11 +1030,11 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.test" />
       <item itemvalue="Python.test2" />
+      <item itemvalue="Python.test3" />
+      <item itemvalue="Python.test" />
       <item itemvalue="Python.threaded_accept" />
       <item itemvalue="Python.turbo" />
-      <item itemvalue="Python.test3" />
     </list>
     <recent_temporary>
       <list>
